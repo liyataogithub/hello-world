@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.findWorld.dao.ContentInfoDao">
+	<!--设置bean类和数据库中表的字段一一对应，注意数据库字段和bean类中的字段名称不致，此处一定要！ -->
+	<resultMap id="BaseResultMap" type="com.findWorld.bean.ContentInfo">
+		<id column="CONTENT_ID" property="contentId" jdbcType="INTEGER" />
+		<result column="CONTENT_TITLE" property="contentTitle" jdbcType="VARCHAR" />
+		<result column="CONTENT_PREVIEW" property="contentPreview" jdbcType="VARCHAR" />
+		<result column="CONTENT_AUTHOR" property="contentAuthor" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="CONTENT_RELEASE_TIME" property="contentReleaseTime" jdbcType="VARCHAR" />
+		<result column="CONTENT_PICTURE" property="contentPicture" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 初始化查询Home页Blog内容展示 -->
+	<select id="initHomeAllContent" resultMap="BaseResultMap">
+		SELECT * FROM content_info ORDER BY CONTENT_RELEASE_TIME DESC  limit 20
+	</select>
+	
+	<!-- 查询单条记录 -->
+	<select id="selectContentById" parameterType="int" resultMap="BaseResultMap">
+		SELECT * FROM content_info WHERE CONTENT_ID = #{contentId}
+	</select>
+	
+</mapper>
